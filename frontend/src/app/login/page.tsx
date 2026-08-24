@@ -1,4 +1,59 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function Login() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Invalid email or password.");
+        return;
+      }
+
+      console.log("Login successful:", data);
+
+      router.push("/dashboard");
+    } catch (error) {
+      console.error("Login failed:", error);
+      setError(
+        "Unable to connect to the server. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-[#F7F8F3] px-6 py-12">
       <div className="mx-auto max-w-md">
@@ -20,7 +75,10 @@ export default function Login() {
           </p>
         </div>
 
-        <form className="mt-8 rounded-3xl bg-white p-8 shadow-sm">
+        <form
+          onSubmit={handleSubmit}
+          className="mt-8 rounded-3xl bg-white p-8 shadow-sm"
+        >
 
           <div>
             <label
@@ -33,6 +91,8 @@ export default function Login() {
             <input
               id="email"
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
             />
@@ -46,13 +106,34 @@ export default function Login() {
               Password
             </label>
 
-            <input
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
-            />
+            <div className="relative">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter your password"
+                className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 pr-12 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-1/2 mt-1 -translate-y-1/2 cursor-pointer rounded-lg p-2 text-gray-500 transition hover:text-[#183B2A]"
+                aria-label={
+                  showPassword ? "Hide password" : "Show password"
+                }
+              >
+                {showPassword ? "◉" : "◌"}
+              </button>
+            </div>
           </div>
+
+          {error && (
+            <p className="mt-4 text-sm font-medium text-red-600">
+              {error}
+            </p>
+          )}
 
           <div className="mt-3 text-right">
             <a
@@ -65,9 +146,10 @@ export default function Login() {
 
           <button
             type="submit"
-            className="mt-7 w-full rounded-xl bg-[#183B2A] py-3.5 font-semibold text-white transition hover:bg-[#24553D]"
+            disabled={loading}
+            className="mt-7 w-full cursor-pointer rounded-xl bg-[#183B2A] py-3.5 font-semibold text-white transition hover:bg-[#24553D] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Sign In
+            {loading ? "Signing in..." : "Sign In"}
           </button>
 
           <p className="mt-6 text-center text-sm text-[#526158]">
