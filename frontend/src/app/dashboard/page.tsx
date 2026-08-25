@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import BudgetCard from "@/components/BudgetCard";
 import BudgetModal from "@/components/BudgetModal";
+import LogoutButton from "@/components/LogoutButton";
 
 type Expense = {
   id: number;
@@ -237,12 +238,7 @@ export default function Dashboard() {
                 : ""}
             </span>
 
-            <button
-              type="button"
-              className="cursor-pointer rounded-xl bg-[#183B2A] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#24553D]"
-            >
-              Logout
-            </button>
+            <LogoutButton />
 
           </div>
 
