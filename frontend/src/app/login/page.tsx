@@ -43,9 +43,16 @@ export default function Login() {
 
       console.log("Login successful:", data);
 
+      // Save logged-in user
+      localStorage.setItem(
+        "spendwiseUser",
+        JSON.stringify(data.user)
+      );
+
       router.push("/dashboard");
     } catch (error) {
       console.error("Login failed:", error);
+
       setError(
         "Unable to connect to the server. Please try again."
       );
@@ -137,7 +144,7 @@ export default function Login() {
 
           <div className="mt-3 text-right">
             <a
-              href="#"
+              href="/forgot-password"
               className="text-sm font-medium text-[#668172] hover:text-[#183B2A]"
             >
               Forgot password?
