@@ -1,3 +1,8 @@
+
+"use client";
+
+import DashboardButton from "@/components/DashboardButton";
+
 export default function Navbar() {
   return (
     <nav className="bg-white">
@@ -13,30 +18,30 @@ export default function Navbar() {
           </span>
         </a>
 
-<div className="flex items-center gap-3">
+        <div className="flex items-center gap-5">
 
-  <a
-    href="#About"
-    className="text-base font-medium text-[#526158] transition hover:text-[#183B2A]"
-  >
-    About
-  </a>
+          <a
+            href="#About"
+            className="text-base font-medium text-[#526158] transition hover:text-[#183B2A]"
+          >
+            About
+          </a>
 
-  <a
-    href="/login"
-    className="text-base font-medium text-[#526158] transition hover:text-[#183B2A]"
-  >
-    Sign In
-  </a>
+          <a
+            href="/login"
+            className="text-base font-medium text-[#526158] transition hover:text-[#183B2A]"
+          >
+            Sign In
+          </a>
+<DashboardButton />
+          <a
+            href="/register"
+            className="rounded-full bg-[#183B2A] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#24553D]"
+          >
+            Get Started
+          </a>
 
-  <a
-    href="/register"
-    className="rounded-full bg-[#183B2A] px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-[#24553D]"
-  >
-    Get Started
-  </a>
-
-</div>
+        </div>
 
       </div>
     </nav>
