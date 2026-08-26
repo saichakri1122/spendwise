@@ -74,7 +74,104 @@ async function getUserExpenses(req, res) {
     });
   }
 }
+async function deleteExpense(req, res) {
+  try {
+    const { id } = req.params;
+
+    const result = await pool.query(
+      `DELETE FROM expenses
+       WHERE id = $1
+       RETURNING id, user_id, amount, category, description, expense_date`,
+      [id]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Expense deleted successfully",
+      expense: result.rows[0],
+    });
+  } catch (error) {
+    console.error("Delete expense error:", error);
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
+
+async function updateExpense(req, res) {
+  try {
+    const { id } = req.params;
+
+    const {
+      amount,
+      category,
+      description,
+      expense_date,
+    } = req.body;
+
+    if (!amount || !category || !expense_date) {
+      return res.status(400).json({
+        message:
+          "Amount, category and expense date are required",
+      });
+    }
+
+    const result = await pool.query(
+      `UPDATE expenses
+       SET
+         amount = $1,
+         category = $2,
+         description = $3,
+         expense_date = $4
+       WHERE id = $5
+       RETURNING
+         id,
+         user_id,
+         amount,
+         category,
+         description,
+         expense_date,
+         created_at`,
+      [
+        amount,
+        category,
+        description || null,
+        expense_date,
+        id,
+      ]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({
+        message: "Expense not found",
+      });
+    }
+
+    res.status(200).json({
+      message: "Expense updated successfully",
+      expense: result.rows[0],
+    });
+  } catch (error) {
+    console.error(
+      "Update expense error:",
+      error
+    );
+
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+}
 module.exports = {
   addExpense,
   getUserExpenses,
+  deleteExpense,
+  updateExpense,
 };
+

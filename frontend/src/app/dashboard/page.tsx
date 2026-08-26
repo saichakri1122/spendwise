@@ -5,6 +5,8 @@ import BudgetCard from "@/components/BudgetCard";
 import BudgetModal from "@/components/BudgetModal";
 import LogoutButton from "@/components/LogoutButton";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import DeleteExpense from "@/components/DeleteExpense";
+import EditExpense from "@/components/EditExpense";
 
 type Expense = {
   id: number;
@@ -110,6 +112,37 @@ export default function Dashboard() {
 
     fetchDashboardData();
   }, []);
+
+  /* -----------------------------
+     Handle Deleted Expense
+  ----------------------------- */
+
+  const handleExpenseDeleted = (
+    expenseId: number
+  ) => {
+    setExpenses((currentExpenses) =>
+      currentExpenses.filter(
+        (expense) =>
+          expense.id !== expenseId
+      )
+    );
+  };
+
+  /* -----------------------------
+     Handle Updated Expense
+  ----------------------------- */
+
+  const handleExpenseUpdated = (
+    updatedExpense: Expense
+  ) => {
+    setExpenses((currentExpenses) =>
+      currentExpenses.map((expense) =>
+        expense.id === updatedExpense.id
+          ? updatedExpense
+          : expense
+      )
+    );
+  };
 
   /* -----------------------------
      Current Month
@@ -230,16 +263,18 @@ export default function Dashboard() {
               SpendWise
             </a>
 
-<div className="flex items-center gap-5">
+            <div className="flex items-center gap-5">
 
-  <h2 className="text-2xl font-bold text-[#183B2A]">
-    Welcome back
-    {username ? `, ${username}` : ""}
-  </h2>
+              <h2 className="text-2xl font-bold text-[#183B2A]">
+                Welcome back
+                {username
+                  ? `, ${username}`
+                  : ""}
+              </h2>
 
-  <LogoutButton />
+              <LogoutButton />
 
-</div>
+            </div>
 
           </div>
 
@@ -442,8 +477,7 @@ export default function Dashboard() {
 
                   </div>
 
-                ) : filteredExpenses.length ===
-                  0 ? (
+                ) : filteredExpenses.length === 0 ? (
 
                   <div className="rounded-2xl border border-dashed border-[#D5DED6] p-10 text-center">
 
@@ -487,12 +521,30 @@ export default function Dashboard() {
 
                         </div>
 
-                        <p className="font-bold text-[#183B2A]">
-                          ₹
-                          {Number(
-                            expense.amount
-                          ).toFixed(2)}
-                        </p>
+                        <div className="flex items-center gap-4">
+
+                          <p className="font-bold text-[#183B2A]">
+                            ₹
+                            {Number(
+                              expense.amount
+                            ).toFixed(2)}
+                          </p>
+
+                          <EditExpense
+                            expense={expense}
+                            onUpdated={
+                              handleExpenseUpdated
+                            }
+                          />
+
+                          <DeleteExpense
+                            expenseId={expense.id}
+                            onDeleted={
+                              handleExpenseDeleted
+                            }
+                          />
+
+                        </div>
 
                       </div>
 
@@ -523,8 +575,7 @@ export default function Dashboard() {
                     Loading categories...
                   </p>
 
-                ) : categories.length ===
-                  0 ? (
+                ) : categories.length === 0 ? (
 
                   <div className="rounded-2xl border border-dashed border-[#D5DED6] p-6 text-center">
 
