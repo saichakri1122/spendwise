@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import BudgetCard from "@/components/BudgetCard";
 import BudgetModal from "@/components/BudgetModal";
+import EditBudget from "@/components/EditBudget";
 import LogoutButton from "@/components/LogoutButton";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DeleteExpense from "@/components/DeleteExpense";
@@ -32,6 +33,9 @@ export default function Dashboard() {
     useState(true);
 
   const [showBudgetModal, setShowBudgetModal] =
+    useState(false);
+
+  const [showEditBudget, setShowEditBudget] =
     useState(false);
 
   useEffect(() => {
@@ -423,14 +427,32 @@ export default function Dashboard() {
           {/* Monthly Budget */}
           {!budgetLoading &&
             monthlyBudget !== null && (
-              <BudgetCard
-                monthlyBudget={
-                  monthlyBudget
-                }
-                budgetSpent={
-                  monthlySpent
-                }
-              />
+              <div>
+
+                <BudgetCard
+                  monthlyBudget={
+                    monthlyBudget
+                  }
+                  budgetSpent={
+                    monthlySpent
+                  }
+                />
+
+                <div className="mt-3 flex justify-end">
+
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setShowEditBudget(true)
+                    }
+                    className="cursor-pointer rounded-xl bg-[#E8F0E8] px-4 py-2 text-sm font-semibold text-[#183B2A] transition hover:bg-[#DCE8DD]"
+                  >
+                    Edit Budget
+                  </button>
+
+                </div>
+
+              </div>
             )}
 
           {/* Main Content */}
@@ -662,6 +684,29 @@ export default function Dashboard() {
             }}
           />
         )}
+
+        {/* Edit Budget */}
+        {showEditBudget &&
+          monthlyBudget !== null && (
+            <EditBudget
+              currentAmount={monthlyBudget}
+              month={currentMonth}
+              year={currentYear}
+              userId={
+                JSON.parse(
+                  localStorage.getItem(
+                    "spendwiseUser"
+                  ) || "{}"
+                ).id
+              }
+              onUpdated={(amount) => {
+                setMonthlyBudget(amount);
+              }}
+              onClose={() =>
+                setShowEditBudget(false)
+              }
+            />
+          )}
 
       </main>
     </ProtectedRoute>
