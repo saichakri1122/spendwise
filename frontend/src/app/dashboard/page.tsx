@@ -8,6 +8,7 @@ import LogoutButton from "@/components/LogoutButton";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import DeleteExpense from "@/components/DeleteExpense";
 import EditExpense from "@/components/EditExpense";
+import AIBot from "@/components/AIBot";
 
 type Expense = {
   id: number;
@@ -22,6 +23,7 @@ type Expense = {
 export default function Dashboard() {
   const [username, setUsername] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
@@ -190,17 +192,22 @@ export default function Dashboard() {
     );
 
   /* -----------------------------
-     Calendar Filtering
+     Date + Category Filtering
   ----------------------------- */
 
-  const filteredExpenses = selectedDate
-    ? expenses.filter((expense) => {
-        const expenseDate =
-          expense.expense_date.split("T")[0];
+  const filteredExpenses =
+    expenses.filter((expense) => {
+      const matchesDate = selectedDate
+        ? expense.expense_date.split("T")[0] ===
+          selectedDate
+        : true;
 
-        return expenseDate === selectedDate;
-      })
-    : expenses;
+      const matchesCategory = selectedCategory
+        ? expense.category === selectedCategory
+        : true;
+
+      return matchesDate && matchesCategory;
+    });
 
   /* -----------------------------
      Dashboard Calculations
@@ -287,7 +294,7 @@ export default function Dashboard() {
         {/* Dashboard */}
         <div className="mx-auto max-w-7xl px-6 py-10">
 
-          {/* Heading + Calendar */}
+          {/* Heading + Filters */}
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
 
             <div>
@@ -306,46 +313,124 @@ export default function Dashboard() {
 
             </div>
 
-            {/* Calendar */}
-            <div>
+            {/* Filters */}
+            <div className="flex flex-col gap-4 sm:flex-row">
 
-              <label
-                htmlFor="date"
-                className="mb-2 block text-sm font-semibold text-[#183B2A]"
-              >
-                Select Date
-              </label>
+              {/* Date Filter */}
+              <div>
 
-              <input
-                id="date"
-                type="date"
-                value={selectedDate}
-                onChange={(e) =>
-                  setSelectedDate(
-                    e.target.value
-                  )
-                }
-                className="cursor-pointer rounded-xl border border-[#D5DED6] bg-white px-4 py-3 text-sm text-[#183B2A] outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
-              />
+                <label
+                  htmlFor="date"
+                  className="mb-2 block text-sm font-semibold text-[#183B2A]"
+                >
+                  Select Date
+                </label>
+
+                <input
+                  id="date"
+                  type="date"
+                  value={selectedDate}
+                  onChange={(e) =>
+                    setSelectedDate(
+                      e.target.value
+                    )
+                  }
+                  className="cursor-pointer rounded-xl border border-[#D5DED6] bg-white px-4 py-3 text-sm text-[#183B2A] outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
+                />
+
+              </div>
+
+              {/* Category Filter */}
+              <div>
+
+                <label
+                  htmlFor="category"
+                  className="mb-2 block text-sm font-semibold text-[#183B2A]"
+                >
+                  Select Category
+                </label>
+
+                <select
+                  id="category"
+                  value={selectedCategory}
+                  onChange={(e) =>
+                    setSelectedCategory(
+                      e.target.value
+                    )
+                  }
+                  className="cursor-pointer rounded-xl border border-[#D5DED6] bg-white px-4 py-3 text-sm text-[#183B2A] outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
+                >
+
+                  <option value="">
+                    All Categories
+                  </option>
+
+                  <option value="Food">
+                    Food
+                  </option>
+
+                  <option value="Shopping">
+                    Shopping
+                  </option>
+
+                  <option value="Transport">
+                    Transport
+                  </option>
+
+                  <option value="Bills">
+                    Bills
+                  </option>
+
+                  <option value="Entertainment">
+                    Entertainment
+                  </option>
+
+                  <option value="Healthcare">
+                    Healthcare
+                  </option>
+
+                  <option value="Education">
+                    Education
+                  </option>
+
+                  <option value="Other">
+                    Other
+                  </option>
+
+                </select>
+
+              </div>
 
             </div>
 
           </div>
 
-          {/* Selected Date Indicator */}
-          {selectedDate && (
+          {/* Selected Filters Indicator */}
+          {(selectedDate ||
+            selectedCategory) && (
             <div className="mt-5 flex items-center justify-between rounded-2xl bg-[#E8F0E8] px-5 py-3">
 
               <p className="text-sm font-medium text-[#183B2A]">
-                Showing expenses for{" "}
-                {selectedDate}
+
+                Showing:
+                {selectedDate &&
+                  ` ${selectedDate}`}
+
+                {selectedDate &&
+                  selectedCategory &&
+                  " • "}
+
+                {selectedCategory &&
+                  ` ${selectedCategory}`}
+
               </p>
 
               <button
                 type="button"
-                onClick={() =>
-                  setSelectedDate("")
-                }
+                onClick={() => {
+                  setSelectedDate("");
+                  setSelectedCategory("");
+                }}
                 className="cursor-pointer text-sm font-semibold text-[#668172] hover:text-[#183B2A]"
               >
                 Clear
@@ -373,8 +458,9 @@ export default function Dashboard() {
               </h2>
 
               <p className="mt-2 text-sm text-[#C5D4CA]">
-                {selectedDate
-                  ? "Selected date"
+                {selectedDate ||
+                selectedCategory
+                  ? "Filtered expenses"
                   : "All recorded expenses"}
               </p>
 
@@ -394,8 +480,9 @@ export default function Dashboard() {
               </h2>
 
               <p className="mt-2 text-sm text-[#526158]">
-                {selectedDate
-                  ? "Selected date"
+                {selectedDate ||
+                selectedCategory
+                  ? "Filtered transactions"
                   : "Total transactions"}
               </p>
 
@@ -470,8 +557,9 @@ export default function Dashboard() {
                   </h2>
 
                   <p className="mt-1 text-sm text-[#526158]">
-                    {selectedDate
-                      ? "Expenses for the selected date."
+                    {selectedDate ||
+                    selectedCategory
+                      ? "Expenses matching your filters."
                       : "Your latest spending activity."}
                   </p>
 
@@ -504,14 +592,16 @@ export default function Dashboard() {
                   <div className="rounded-2xl border border-dashed border-[#D5DED6] p-10 text-center">
 
                     <p className="font-medium text-[#526158]">
-                      {selectedDate
-                        ? "No expenses for this date"
+                      {selectedDate ||
+                      selectedCategory
+                        ? "No matching expenses"
                         : "No expenses yet"}
                     </p>
 
                     <p className="mt-2 text-sm text-[#8A968E]">
-                      {selectedDate
-                        ? "Try selecting another date."
+                      {selectedDate ||
+                      selectedCategory
+                        ? "Try changing your filters."
                         : "Add your first expense to start tracking your spending."}
                     </p>
 
@@ -606,8 +696,9 @@ export default function Dashboard() {
                     </p>
 
                     <p className="mt-2 text-xs text-[#8A968E]">
-                      {selectedDate
-                        ? "No categories for this date."
+                      {selectedDate ||
+                      selectedCategory
+                        ? "No categories match your filters."
                         : "Add an expense to see your categories."}
                     </p>
 
@@ -707,6 +798,9 @@ export default function Dashboard() {
               }
             />
           )}
+
+        {/* SpendWise AI */}
+        <AIBot username={username} />
 
       </main>
     </ProtectedRoute>
