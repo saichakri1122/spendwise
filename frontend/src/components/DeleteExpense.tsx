@@ -26,7 +26,7 @@ export default function DeleteExpense({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/expenses/${expenseId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/expenses/${expenseId}`,
         {
           method: "DELETE",
         }

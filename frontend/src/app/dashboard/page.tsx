@@ -61,7 +61,7 @@ export default function Dashboard() {
         ----------------------------- */
 
         const expenseResponse = await fetch(
-          `http://localhost:5000/api/expenses/${user.id}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/expenses/${user.id}`
         );
 
         const expenseData =
@@ -89,7 +89,7 @@ export default function Dashboard() {
           currentDate.getMonth() + 1;
 
         const budgetResponse = await fetch(
-          `http://localhost:5000/api/budgets/${user.id}/${currentYear}/${currentMonth}`
+          `${process.env.NEXT_PUBLIC_API_URL}/api/budgets/${user.id}/${currentYear}/${currentMonth}`
         );
 
         if (budgetResponse.ok) {

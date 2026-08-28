@@ -49,7 +49,7 @@ export default function AddExpense() {
       const user = JSON.parse(savedUser);
 
       const response = await fetch(
-        "http://localhost:5000/api/expenses",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/expenses`,
         {
           method: "POST",
           headers: {

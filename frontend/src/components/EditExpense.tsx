@@ -54,7 +54,7 @@ export default function EditExpense({
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/expenses/${expense.id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/expenses/${expense.id}`,
         {
           method: "PUT",
           headers: {

@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/auth/login",
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/login`,
         {
           method: "POST",
           headers: {
