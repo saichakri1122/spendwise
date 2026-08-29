@@ -8,6 +8,11 @@ and interact with an AI assistant for financial insights.
 
 [Visit SpendWise](https://spendwise-kappa-six.vercel.app/)
 
+SpendWise Landing Page
+<img width="2834" height="1522" alt="image" src="https://github.com/user-attachments/assets/08c26cfe-a77a-4130-b08b-3875b54a1878" />
+SpendWise Dashboard page
+<img width="2830" height="1514" alt="image" src="https://github.com/user-attachments/assets/8995503a-e91c-42d2-90e6-a63361511811" />
+
 ## 📌 About the Project
 
 Managing everyday expenses can become difficult when spending is spread
@@ -19,8 +24,6 @@ and understand their financial habits.
 
 The application also includes an AI assistant that allows users to
 interact with their spending information and get useful insights.
-
----
 
 ## ✨ Features
 
@@ -72,8 +75,6 @@ interact with their spending information and get useful insights.
 - Desktop-responsive interface
 - Responsive dashboard
 - Responsive forms and navigation
-
----
 
 ## 🛠️ Tech Stack
 
