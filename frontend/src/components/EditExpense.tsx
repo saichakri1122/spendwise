@@ -129,13 +129,13 @@ export default function EditExpense({
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 sm:px-6">
 
-          <div className="w-full max-w-lg rounded-3xl bg-white p-7 shadow-xl">
+          <div className="max-h-[calc(100vh-48px)] w-full max-w-lg overflow-y-auto rounded-3xl bg-white p-6 shadow-xl sm:p-7">
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
 
-              <h2 className="text-2xl font-bold text-[#183B2A]">
+              <h2 className="text-xl font-bold text-[#183B2A] sm:text-2xl">
                 Edit Expense
               </h2>
 
@@ -144,7 +144,8 @@ export default function EditExpense({
                 onClick={() =>
                   setShowModal(false)
                 }
-                className="cursor-pointer text-xl text-[#668172] hover:text-[#183B2A]"
+                aria-label="Close"
+                className="shrink-0 cursor-pointer text-xl text-[#668172] hover:text-[#183B2A]"
               >
                 ×
               </button>
@@ -301,13 +302,13 @@ export default function EditExpense({
 
               {/* Error */}
               {error && (
-                <p className="text-sm font-medium text-red-600">
+                <p className="text-sm font-medium leading-5 text-red-600">
                   {error}
                 </p>
               )}
 
               {/* Buttons */}
-              <div className="flex gap-3 pt-2">
+              <div className="flex flex-col gap-3 pt-2 sm:flex-row">
 
                 <button
                   type="button"

@@ -81,7 +81,7 @@ export default function DeleteExpense({
       type="button"
       onClick={handleDelete}
       disabled={loading}
-      className="cursor-pointer rounded-lg px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+      className="w-full cursor-pointer rounded-lg px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
     >
       {loading ? "Deleting..." : "Delete"}
     </button>

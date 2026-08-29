@@ -74,15 +74,12 @@ export default function BudgetModal({
         return;
       }
 
-      // Update the dashboard budget
       onBudgetSaved(
         Number(data.budget.amount)
       );
 
-      // Show success message
       setSuccess("Budget saved successfully!");
 
-      // Close modal after showing success
       setTimeout(() => {
         onClose();
       }, 1000);
@@ -102,23 +99,23 @@ export default function BudgetModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 sm:px-6">
 
-      <div className="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
+      <div className="max-h-[calc(100vh-48px)] w-full max-w-md overflow-y-auto rounded-3xl bg-white p-6 shadow-xl sm:p-8">
 
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between gap-4">
 
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#668172]">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#668172] sm:text-sm">
               Monthly Budget
             </p>
 
-            <h2 className="mt-2 text-2xl font-bold text-[#183B2A]">
+            <h2 className="mt-2 text-xl font-bold text-[#183B2A] sm:text-2xl">
               Set your budget
             </h2>
 
-            <p className="mt-2 text-sm text-[#526158]">
+            <p className="mt-2 text-sm leading-6 text-[#526158]">
               Choose how much you want to spend this month.
             </p>
           </div>
@@ -126,7 +123,7 @@ export default function BudgetModal({
           <button
             type="button"
             onClick={onClose}
-            className="cursor-pointer text-xl text-gray-400 transition hover:text-[#183B2A]"
+            className="shrink-0 cursor-pointer text-xl text-gray-400 transition hover:text-[#183B2A]"
             aria-label="Close"
           >
             ×
@@ -137,7 +134,7 @@ export default function BudgetModal({
         {/* Form */}
         <form
           onSubmit={handleSubmit}
-          className="mt-7"
+          className="mt-6 sm:mt-7"
         >
 
           <label
@@ -171,14 +168,14 @@ export default function BudgetModal({
 
           {/* Error */}
           {error && (
-            <p className="mt-3 text-sm font-medium text-red-600">
+            <p className="mt-3 text-sm font-medium leading-5 text-red-600">
               {error}
             </p>
           )}
 
           {/* Success */}
           {success && (
-            <p className="mt-3 text-sm font-medium text-green-700">
+            <p className="mt-3 text-sm font-medium leading-5 text-green-700">
               ✓ {success}
             </p>
           )}

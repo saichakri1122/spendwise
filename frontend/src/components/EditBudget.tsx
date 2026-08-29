@@ -112,19 +112,19 @@ export default function EditBudget({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6 sm:px-6">
 
-      <div className="w-full max-w-md rounded-3xl bg-white p-7 shadow-xl">
+      <div className="max-h-[calc(100vh-48px)] w-full max-w-md overflow-y-auto rounded-3xl bg-white p-6 shadow-xl sm:p-7">
 
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-4">
 
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-widest text-[#668172]">
+          <div className="min-w-0">
+            <p className="text-xs font-semibold uppercase tracking-widest text-[#668172] sm:text-sm">
               Monthly Budget
             </p>
 
-            <h2 className="mt-1 text-2xl font-bold text-[#183B2A]">
+            <h2 className="mt-1 text-xl font-bold text-[#183B2A] sm:text-2xl">
               Edit Budget
             </h2>
           </div>
@@ -132,7 +132,8 @@ export default function EditBudget({
           <button
             type="button"
             onClick={onClose}
-            className="cursor-pointer text-2xl text-[#668172] hover:text-[#183B2A]"
+            className="shrink-0 cursor-pointer text-2xl text-[#668172] hover:text-[#183B2A]"
+            aria-label="Close"
           >
             ×
           </button>
@@ -175,13 +176,13 @@ export default function EditBudget({
           </div>
 
           {error && (
-            <p className="mt-3 text-sm font-medium text-red-600">
+            <p className="mt-3 text-sm font-medium leading-5 text-red-600">
               {error}
             </p>
           )}
 
           {/* Buttons */}
-          <div className="mt-6 flex gap-3">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
 
             <button
               type="button"

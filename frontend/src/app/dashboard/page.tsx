@@ -263,33 +263,58 @@ export default function Dashboard() {
       <main className="min-h-screen bg-[#F7F8F3]">
 
         {/* Header */}
-        <header className="border-b border-[#E2E8E2] bg-white">
+{/* Header */}
+<header className="border-b border-[#E2E8E2] bg-white">
+  <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-5">
 
-          <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
+    {/* Mobile Header */}
+    <div className="flex flex-col gap-3 sm:hidden">
 
-            <a
-              href="/"
-              className="text-2xl font-bold text-[#183B2A]"
-            >
-              SpendWise
-            </a>
+      <div className="flex items-center justify-between gap-3">
 
-            <div className="flex items-center gap-5">
+        <a
+          href="/"
+          className="shrink-0 text-xl font-bold text-[#183B2A]"
+        >
+          SpendWise
+        </a>
 
-              <h2 className="text-2xl font-bold text-[#183B2A]">
-                Welcome back
-                {username
-                  ? `, ${username}`
-                  : ""}
-              </h2>
+        <LogoutButton />
 
-              <LogoutButton />
+      </div>
 
-            </div>
+      <h2 className="text-lg font-bold leading-6 text-[#183B2A]">
+        Welcome back
+        {username ? `, ${username}` : ""}
+      </h2>
 
-          </div>
+    </div>
 
-        </header>
+    {/* Desktop Header */}
+    <div className="hidden items-center justify-between sm:flex">
+
+      <a
+        href="/"
+        className="text-2xl font-bold text-[#183B2A]"
+      >
+        SpendWise
+      </a>
+
+      <div className="flex items-center gap-5">
+
+        <h2 className="text-2xl font-bold text-[#183B2A]">
+          Welcome back
+          {username ? `, ${username}` : ""}
+        </h2>
+
+        <LogoutButton />
+
+      </div>
+
+    </div>
+
+  </div>
+</header>
 
         {/* Dashboard */}
         <div className="mx-auto max-w-7xl px-6 py-10">

@@ -103,7 +103,7 @@ export default function AddExpense() {
   };
 
   return (
-    <main className="min-h-screen bg-[#F7F8F3] px-6 py-12">
+    <main className="min-h-screen bg-[#F7F8F3] px-4 py-8 sm:px-6 sm:py-12">
       <div className="mx-auto max-w-2xl">
 
         <a
@@ -113,17 +113,17 @@ export default function AddExpense() {
           ← Back to Dashboard
         </a>
 
-        <div className="mt-8">
+        <div className="mt-6 sm:mt-8">
 
-          <p className="text-sm font-semibold uppercase tracking-widest text-[#668172]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[#668172] sm:text-sm">
             Expenses
           </p>
 
-          <h1 className="mt-2 text-4xl font-bold text-[#183B2A]">
+          <h1 className="mt-2 text-3xl font-bold leading-tight text-[#183B2A] sm:text-4xl">
             Add an expense
           </h1>
 
-          <p className="mt-3 text-[#526158]">
+          <p className="mt-3 text-sm leading-6 text-[#526158] sm:text-base">
             Record your spending and keep your finances organized.
           </p>
 
@@ -131,7 +131,7 @@ export default function AddExpense() {
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 rounded-3xl bg-white p-8 shadow-sm"
+          className="mt-6 rounded-3xl bg-white p-5 shadow-sm sm:mt-8 sm:p-8"
         >
 
           {/* Amount */}
@@ -273,7 +273,7 @@ export default function AddExpense() {
               required
             />
 
-            <p className="mt-2 text-xs text-[#8A968E]">
+            <p className="mt-2 text-xs leading-5 text-[#8A968E]">
               Future dates cannot be selected.
             </p>
 
@@ -281,13 +281,13 @@ export default function AddExpense() {
 
           {/* Messages */}
           {error && (
-            <p className="mt-4 text-sm font-medium text-red-600">
+            <p className="mt-4 text-sm font-medium leading-5 text-red-600">
               {error}
             </p>
           )}
 
           {success && (
-            <p className="mt-4 text-sm font-medium text-green-700">
+            <p className="mt-4 text-sm font-medium leading-5 text-green-700">
               {success}
             </p>
           )}
@@ -296,7 +296,7 @@ export default function AddExpense() {
           <button
             type="submit"
             disabled={loading}
-            className="mt-7 w-full cursor-pointer rounded-xl bg-[#183B2A] py-3.5 font-semibold text-white transition hover:bg-[#24553D] disabled:cursor-not-allowed disabled:opacity-60"
+            className="mt-6 w-full cursor-pointer rounded-xl bg-[#183B2A] py-3.5 font-semibold text-white transition hover:bg-[#24553D] disabled:cursor-not-allowed disabled:opacity-60 sm:mt-7"
           >
             {loading
               ? "Adding expense..."

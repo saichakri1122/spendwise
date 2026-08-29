@@ -27,8 +27,8 @@ export default function ProtectedRoute({
 
   if (checking) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#F7F8F3]">
-        <p className="text-sm font-medium text-[#526158]">
+      <main className="flex min-h-screen items-center justify-center bg-[#F7F8F3] px-5">
+        <p className="text-center text-sm font-medium text-[#526158]">
           Checking your session...
         </p>
       </main>

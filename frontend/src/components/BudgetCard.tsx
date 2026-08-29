@@ -28,17 +28,17 @@ export default function BudgetCard({
     budgetPercentage < 100;
 
   return (
-    <div className="mt-5 rounded-3xl bg-white p-7">
+    <div className="mt-5 rounded-3xl bg-white p-5 sm:p-6 md:p-7">
 
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 
         <div>
           <p className="text-sm font-semibold text-[#668172]">
             Monthly Budget
           </p>
 
-          <h2 className="mt-2 text-3xl font-bold text-[#183B2A]">
+          <h2 className="mt-2 text-2xl font-bold text-[#183B2A] sm:text-3xl">
             ₹{monthlyBudget.toFixed(2)}
           </h2>
         </div>
@@ -58,7 +58,7 @@ export default function BudgetCard({
       </div>
 
       {/* Progress Bar */}
-      <div className="mt-6 h-3 overflow-hidden rounded-full bg-[#E8F0E8]">
+      <div className="mt-5 h-3 overflow-hidden rounded-full bg-[#E8F0E8] sm:mt-6">
 
         <div
           className={
@@ -77,13 +77,13 @@ export default function BudgetCard({
 
       {/* Warning */}
       {isOverBudget && (
-        <div className="mt-5 rounded-2xl bg-red-50 px-4 py-3">
+        <div className="mt-4 rounded-2xl bg-red-50 px-4 py-3 sm:mt-5">
 
           <p className="text-sm font-semibold text-red-700">
             ⚠️ You've exceeded your monthly budget.
           </p>
 
-          <p className="mt-1 text-xs text-red-600">
+          <p className="mt-1 text-xs leading-5 text-red-600">
             Try reducing your spending for the rest of the month.
           </p>
 
@@ -91,13 +91,13 @@ export default function BudgetCard({
       )}
 
       {isNearBudget && (
-        <div className="mt-5 rounded-2xl bg-orange-50 px-4 py-3">
+        <div className="mt-4 rounded-2xl bg-orange-50 px-4 py-3 sm:mt-5">
 
           <p className="text-sm font-semibold text-orange-700">
             ⚠️ You're getting close to your budget.
           </p>
 
-          <p className="mt-1 text-xs text-orange-600">
+          <p className="mt-1 text-xs leading-5 text-orange-600">
             Consider keeping an eye on your spending.
           </p>
 
@@ -105,7 +105,7 @@ export default function BudgetCard({
       )}
 
       {/* Spending Information */}
-      <div className="mt-4 flex justify-between text-sm">
+      <div className="mt-4 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:justify-between sm:gap-3">
 
         <span className="text-[#526158]">
           Spent: ₹{budgetSpent.toFixed(2)}

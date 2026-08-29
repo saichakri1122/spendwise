@@ -147,7 +147,7 @@ export default function AIBot({
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label="Open SpendWise AI"
-          className="fixed bottom-6 right-6 z-50 flex cursor-pointer items-center gap-3 rounded-full bg-[#183B2A] px-5 py-3.5 text-white shadow-lg transition-all duration-200 hover:-translate-y-1 hover:bg-[#24553D] hover:shadow-xl"
+          className="fixed bottom-4 right-4 z-50 flex cursor-pointer items-center gap-2 rounded-full bg-[#183B2A] px-4 py-3 text-white shadow-lg transition-all duration-200 hover:-translate-y-1 hover:bg-[#24553D] hover:shadow-xl sm:bottom-6 sm:right-6 sm:gap-3 sm:px-5 sm:py-3.5"
         >
           <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-lg">
             ✦
@@ -160,7 +160,7 @@ export default function AIBot({
       )}
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 flex h-[620px] w-[390px] max-w-[calc(100vw-32px)] flex-col overflow-hidden rounded-3xl border border-[#DCE5DE] bg-white shadow-2xl">
+        <div className="fixed bottom-3 left-3 right-3 z-50 flex h-[calc(100dvh-24px)] max-h-[700px] flex-col overflow-hidden rounded-3xl border border-[#DCE5DE] bg-white shadow-2xl sm:bottom-6 sm:left-auto sm:right-6 sm:h-[620px] sm:w-[390px] sm:max-w-[calc(100vw-32px)]">
 
           {/* Header */}
           <div className="flex items-center justify-between bg-[#183B2A] px-5 py-4 text-white">
