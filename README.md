@@ -3,6 +3,12 @@
 SpendWise is a full-stack personal finance application that helps users
 track expenses, manage monthly budgets, understand spending patterns,
 and interact with an AI assistant for financial insights.
+<img
+  width="400"
+  alt="SpendWise Demo"
+  src="https://github.com/user-attachments/assets/0661d9df-16ad-4691-91ef-dee993b5df59"
+/>
+
 
 ## 🚀 Live Demo
 
