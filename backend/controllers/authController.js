@@ -11,9 +11,18 @@ async function registerUser(req, res) {
       });
     }
 
+    // Only allow Gmail addresses
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedEmail.endsWith("@gmail.com")) {
+      return res.status(400).json({
+        message: "Only Gmail addresses are allowed",
+      });
+    }
+
     const existingUser = await pool.query(
       "SELECT id FROM users WHERE email = $1",
-      [email]
+      [normalizedEmail]
     );
 
     if (existingUser.rows.length > 0) {
@@ -28,7 +37,7 @@ async function registerUser(req, res) {
       `INSERT INTO users (name, email, password)
        VALUES ($1, $2, $3)
        RETURNING id, name, email, created_at`,
-      [name, email, hashedPassword]
+      [name, normalizedEmail, hashedPassword]
     );
 
     res.status(201).json({

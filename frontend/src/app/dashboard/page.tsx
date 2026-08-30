@@ -9,6 +9,8 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import DeleteExpense from "@/components/DeleteExpense";
 import EditExpense from "@/components/EditExpense";
 import AIBot from "@/components/AIBot";
+import DownloadExpenses from "@/components/DownloadExpenses";
+
 
 type Expense = {
   id: number;
@@ -580,6 +582,7 @@ export default function Dashboard() {
                   <h2 className="text-2xl font-bold text-[#183B2A]">
                     Recent Expenses
                   </h2>
+                  <DownloadExpenses />
 
                   <p className="mt-1 text-sm text-[#526158]">
                     {selectedDate ||

@@ -32,7 +32,7 @@ export default function Hero() {
             </a>
 
             <a
-              href="#features"
+              href="#About"
               className="w-full rounded-full border border-[#CBD5CC] bg-white px-8 py-4 text-center text-sm font-semibold text-[#183B2A] transition hover:bg-[#F0F3ED] sm:w-auto"
             >
               See how it works

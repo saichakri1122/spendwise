@@ -15,11 +15,22 @@ export default function Register() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     setMessage("");
     setError("");
+
+    const normalizedEmail = email.trim().toLowerCase();
+
+    // Only allow Gmail addresses
+    if (!normalizedEmail.endsWith("@gmail.com")) {
+      setError("Please use a valid Gmail address.");
+      return;
+    }
+
     setLoading(true);
 
     try {
@@ -32,7 +43,7 @@ export default function Register() {
           },
           body: JSON.stringify({
             name,
-            email,
+            email: normalizedEmail,
             password,
           }),
         }
@@ -41,28 +52,40 @@ export default function Register() {
       const data = await response.json();
 
       if (!response.ok) {
-        setError(data.message || "Registration failed.");
+        setError(
+          data.message || "Registration failed."
+        );
         return;
       }
 
-      setMessage("Account created successfully!");
+      setMessage(
+        "Account created successfully!"
+      );
 
       setTimeout(() => {
         router.push("/login");
       }, 1200);
     } catch (error) {
-      console.error("Registration failed:", error);
-      setError("Unable to connect to the server. Please try again.");
+      console.error(
+        "Registration failed:",
+        error
+      );
+
+      setError(
+        "Unable to connect to the server. Please try again."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-[#F7F8F3] px-6 py-12">
+    <main className="min-h-screen bg-[#F7F8F3] px-4 py-8 sm:px-6 sm:py-12">
+
       <div className="mx-auto max-w-md">
 
         <div className="text-center">
+
           <a
             href="/"
             className="text-2xl font-bold text-[#183B2A]"
@@ -77,14 +100,17 @@ export default function Register() {
           <p className="mt-3 text-[#526158]">
             Start taking control of your spending today.
           </p>
+
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="mt-8 rounded-3xl bg-white p-8 shadow-sm"
+          className="mt-8 rounded-3xl bg-white p-6 shadow-sm sm:p-8"
         >
 
+          {/* Name */}
           <div>
+
             <label
               htmlFor="name"
               className="text-sm font-semibold text-[#183B2A]"
@@ -96,31 +122,45 @@ export default function Register() {
               id="name"
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={(e) =>
+                setName(e.target.value)
+              }
               placeholder="Enter your name"
               className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
             />
+
           </div>
 
+          {/* Email */}
           <div className="mt-5">
+
             <label
               htmlFor="email"
               className="text-sm font-semibold text-[#183B2A]"
             >
-              Email Address
+              Gmail Address
             </label>
 
             <input
               id="email"
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
+              placeholder="you@gmail.com"
               className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
             />
+
+            <p className="mt-2 text-xs text-[#8A968E]">
+              Only Gmail addresses are accepted.
+            </p>
+
           </div>
 
+          {/* Password */}
           <div className="mt-5">
+
             <label
               htmlFor="password"
               className="text-sm font-semibold text-[#183B2A]"
@@ -129,56 +169,82 @@ export default function Register() {
             </label>
 
             <div className="relative">
+
               <input
                 id="password"
-                type={showPassword ? "text" : "password"}
+                type={
+                  showPassword
+                    ? "text"
+                    : "password"
+                }
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) =>
+                  setPassword(e.target.value)
+                }
                 placeholder="Create a password"
                 className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 pr-12 outline-none transition focus:border-[#668172] focus:ring-2 focus:ring-[#E8F0E8]"
               />
 
               <button
                 type="button"
-                onClick={() => setShowPassword(!showPassword)}
+                onClick={() =>
+                  setShowPassword(
+                    !showPassword
+                  )
+                }
                 className="absolute right-3 top-1/2 mt-1 -translate-y-1/2 cursor-pointer rounded-lg p-2 text-gray-500 transition hover:text-[#183B2A]"
                 aria-label={
-                  showPassword ? "Hide password" : "Show password"
+                  showPassword
+                    ? "Hide password"
+                    : "Show password"
                 }
               >
-                {showPassword ? "◉" : "◌"}
+                {showPassword
+                  ? "◉"
+                  : "◌"}
               </button>
+
             </div>
+
           </div>
 
+          {/* Error */}
           {error && (
             <p className="mt-4 text-sm font-medium text-red-600">
               {error}
             </p>
           )}
 
+          {/* Success */}
           {message && (
             <p className="mt-4 text-sm font-medium text-green-700">
               {message}
             </p>
           )}
 
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
             className="mt-7 w-full cursor-pointer rounded-xl bg-[#183B2A] py-3.5 font-semibold text-white transition hover:bg-[#24553D] disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loading ? "Creating account..." : "Create Account"}
+            {loading
+              ? "Creating account..."
+              : "Create Account"}
           </button>
 
+          {/* Login */}
           <p className="mt-6 text-center text-sm text-[#526158]">
+
             Already have an account?{" "}
+
             <a
               href="/login"
               className="font-semibold text-[#183B2A] hover:underline"
             >
               Sign In
             </a>
+
           </p>
 
         </form>
@@ -189,6 +255,7 @@ export default function Register() {
         </p>
 
       </div>
+
     </main>
   );
 }
